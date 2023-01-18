@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const WebSocket = require("ws");
+// const WebSocket = require("ws");
 const jwt = require("jsonwebtoken");
 
 //cors
@@ -19,22 +19,22 @@ dotenv.config();
 //App iniat
 const app = express();
 const server = app.listen(process.env.PORT);
-const wss = new WebSocket.Server({ server });
+// const wss = new WebSocket.Server({ server });
 
-wss.on("connection", (ws) => {
-  ws.send(JSON.stringify({type:"New Message",message:"Hello Client this is your first message connection !"}));
-});
+// wss.on("connection", (ws) => {
+//   ws.send(JSON.stringify({type:"New Message",message:"Hello Client this is your first message connection !"}));
+// });
 
 // wss.on("connection", (ws) => {
 //   ws.on("message", (message) => {
 //     console.log(`Received message: ${message}`);
 //   });
 // });
-let clients = [];
+// let clients = [];
 
-wss.on('connection', (ws) => {
-  clients.push(ws);
-});
+// wss.on('connection', (ws) => {
+//   clients.push(ws);
+// });
 //DB MONGO
 mongoose.set("strictQuery", false);
 mongoose.connect(
@@ -66,9 +66,9 @@ app.post("/api/insert/blog", (req, res) => {
     if (err) {
       res.status(500).send(err);
     } else {
-      clients.forEach((client) => {
-        client.send(JSON.stringify({ type: 'newBlog',blog }));
-      });
+      // clients.forEach((client) => {
+      //   client.send(JSON.stringify({ type: 'newBlog',blog }));
+      // });
       res.status(200).send(blog);
     }
   });
